@@ -32,11 +32,6 @@ const btnCheckIn = document.getElementById("btnCheckIn");
 btnCheckIn.addEventListener("click", on_btnCheckin_click);
 var userlocation;
 
-async function getUserProfile() {
-  //pictureUrl.src = profile.pictureUrl;
-  greetingText.innerHTML = "สวัสดีคุณ" + profile.displayName;
-}
-
 function refreshTime() {
   //test//
   var options = { dateStyle: "long", timeStyle: "medium" };
@@ -164,8 +159,13 @@ function on_btnCheckin_click() {
 
 async function main() {
   await liff.init({ liffId: "1655863402-51ngLPwJ" });
+  if (liff.isLoggedIn()) greetingText.innerHTML = "log in done";
+  else {
+    greetingText.innerHTML = "not loggin in";
+    liff.login();
+  }
   profile = liff.getProfile();
-  greetingText.innerHTML = "สวัสดีคุณ" + profile.displayName;
+  //greetingText.innerHTML = "สวัสดีคุณ" + profile.displayName;
   initMap(profile.pictureUrl);
 }
 main();
