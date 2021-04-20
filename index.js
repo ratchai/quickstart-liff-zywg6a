@@ -28,6 +28,8 @@ const timeDisplay = document.getElementById("time");
 const dateDisplay = document.getElementById("date");
 const greetingText = document.getElementById("greeting");
 var profile;
+const btnCheckIn = document.getElementById("btnCheckIn");
+btnCheckIn.addEventListener("click", on_btnCheckin_click);
 var userlocation;
 
 async function getUserProfile() {
@@ -137,15 +139,16 @@ function initMap(profileimageURL) {
 function handleLocationError(browserHasGeolocation, pos) {
   console.log("Error: The Geolocation service failed.");
 }
+
 function on_btnCheckin_click() {
   liff.sendMessages([
     {
       type: "text",
       text:
         "คุณได้เข้างานเมื่อวันที่  " +
-        formattedDateString +
-        " เวลา" +
-        formattedTimeString +
+        dateDisplay.innerHTML +
+        " เวลา " +
+        timeDisplay.innerHTML +
         " เรียบร้อยแล้ว"
     }
   ]);
@@ -161,9 +164,8 @@ function on_btnCheckin_click() {
 
 async function main() {
   await liff.init({ liffId: "1655863402-51ngLPwJ" });
-
   profile = liff.getProfile();
-  //greetingText.innerHTML = "สวัสดีคุณ" + profile.displayName;
+  greetingText.innerHTML = "สวัสดีคุณ" + profile.displayName;
   initMap(profile.pictureUrl);
 }
 main();
