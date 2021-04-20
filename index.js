@@ -128,20 +128,14 @@ function initMap(profileimageURL) {
         );
       },
       () => {
-        handleLocationError(true, infoWindow, map.getCenter());
+        handleLocationError(true, map.getCenter());
       }
     );
   }
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(
-    browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
-  );
-  infoWindow.open(map);
+function handleLocationError(browserHasGeolocation, pos) {
+  console.log("Error: The Geolocation service failed.");
 }
 function on_btnCheckin_click() {
   liff.sendMessages([
@@ -167,8 +161,9 @@ function on_btnCheckin_click() {
 
 async function main() {
   await liff.init({ liffId: "1655863402-51ngLPwJ" });
+
   profile = liff.getProfile();
-  greetingText.innerHTML = "สวัสดีคุณ" + profile.displayName;
+  //greetingText.innerHTML = "สวัสดีคุณ" + profile.displayName;
   initMap(profile.pictureUrl);
 }
 main();
